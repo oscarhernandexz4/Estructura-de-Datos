@@ -14,14 +14,18 @@ namespace ejemplo1
             Console.WriteLine(suma);
         }
 
-
         public static void MostrarPotenciaX(double num1, double potencia)
         {
 
             double result = Math.Pow(num1, potencia);
-            Console.WriteLine($" La potencia de {num1} elevado a {potencia} es : {result}");
+            Console.WriteLine($"La potencia de {num1} elevado a {potencia} es : {result}");
         }
 
+        static void ModificarValor(int n)
+        {
+            n = n + 1;
+            Console.WriteLine($"Dentro del metodo: {n}");
+        }
 
         static void Main(string[] args)
         {
@@ -29,9 +33,12 @@ namespace ejemplo1
 
             ImprimirSuma(y, x);
             ImprimirSuma(1000, -1);
-            
             MostrarPotenciaX(x, y);
-
+            
+            int edad = 17;
+            Console.WriteLine($"Antes del metodo: {edad}");
+            ModificarValor(edad);
+            Console.WriteLine($"Despues del metodo: {edad}");
         }
 
     }
