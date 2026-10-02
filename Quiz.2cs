@@ -1,0 +1,110 @@
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        
+        string[] nombres =
+        {
+            "Juan Perez",
+            "Maria Gonzalez",
+            "Carlos Rodriguez",
+            "Ana Martinez",
+            "Luis Hernandez",
+            "Sofia Torres",
+            "Daniel Ramirez",
+            "Valentina Castro",
+            "Andres Gomez",
+            "Camila Moreno",
+            "Miguel Lopez",
+            "Laura Diaz",
+            "Sebastian Vargas",
+            "Paula Rojas",
+            "Diego Sanchez",
+            "Gabriela Jimenez",
+            "Nicolas Herrera",
+            "Daniela Ruiz"
+        };
+
+        double[] calificaciones =
+        {
+            4.5,
+            3.8,
+            2.9,
+            4.2,
+            3.5,
+            4.8,
+            2.7,
+            3.9,
+            4.0,
+            2.5,
+            3.2,
+            4.6,
+            3.0,
+            2.8,
+            4.3,
+            3.7,
+            4.9,
+            2.6
+        };
+
+        
+        double suma = 0;
+        double mayor = calificaciones[0];
+        double menor = calificaciones[0];
+
+        int aprobados = 0;
+        int reprobados = 0;
+
+        
+        for (int i = 0; i < 18; i++)
+        {
+            suma += calificaciones[i];
+
+            if (calificaciones[i] > mayor)
+            {
+                mayor = calificaciones[i];
+            }
+
+            if (calificaciones[i] < menor)
+            {
+                menor = calificaciones[i];
+            }
+
+            if (calificaciones[i] >= 3.0)
+            {
+                aprobados++;
+            }
+            else
+            {
+                reprobados++;
+            }
+        }
+
+        double promedio = suma / 18;
+
+        
+        Console.WriteLine("========== REGISTRO DE CALIFICACIONES ==========\n");
+
+        for (int i = 0; i < 18; i++)
+        {
+            Console.WriteLine(
+                (i + 1) + ". " + nombres[i] +
+                " - Calificacion: " +
+                calificaciones[i].ToString("F2")
+            );
+        }
+
+        // Mostrar estadísticas
+        Console.WriteLine("\n========== REPORTE FINAL ==========");
+        Console.WriteLine("Promedio del grupo: " + promedio.ToString("F2"));
+        Console.WriteLine("Nota mayor: " + mayor.ToString("F2"));
+        Console.WriteLine("Nota menor: " + menor.ToString("F2"));
+        Console.WriteLine("Cantidad de aprobados: " + aprobados);
+        Console.WriteLine("Cantidad de reprobados: " + reprobados);
+
+        Console.ReadKey();
+    }
+}
+
