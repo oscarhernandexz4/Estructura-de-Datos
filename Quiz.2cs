@@ -4,60 +4,54 @@ class Program
 {
     static void Main()
     {
-        
-        string[] nombres =
-        {
-            "Juan Perez",
-            "Maria Gonzalez",
-            "Carlos Rodriguez",
-            "Ana Martinez",
-            "Luis Hernandez",
-            "Sofia Torres",
-            "Daniel Ramirez",
-            "Valentina Castro",
-            "Andres Gomez",
-            "Camila Moreno",
-            "Miguel Lopez",
-            "Laura Diaz",
-            "Sebastian Vargas",
-            "Paula Rojas",
-            "Diego Sanchez",
-            "Gabriela Jimenez",
-            "Nicolas Herrera",
-            "Daniela Ruiz"
-        };
+        // Arreglos estáticos para 18 estudiantes
+        string[] nombres = new string[18];
+        double[] calificaciones = new double[18];
 
-        double[] calificaciones =
+        // Registrar estudiantes
+        for (int i = 0; i < 18; i++)
         {
-            4.5,
-            3.8,
-            2.9,
-            4.2,
-            3.5,
-            4.8,
-            2.7,
-            3.9,
-            4.0,
-            2.5,
-            3.2,
-            4.6,
-            3.0,
-            2.8,
-            4.3,
-            3.7,
-            4.9,
-            2.6
-        };
+            // Solicitar y validar nombre
+            for (;;)
+            {
+                Console.Write("Ingrese el nombre del estudiante " + (i + 1) + ": ");
+                string nombre = Console.ReadLine();
 
-        
+                if (!string.IsNullOrWhiteSpace(nombre))
+                {
+                    nombres[i] = nombre;
+                    break;
+                }
+
+                Console.WriteLine("Error: el nombre no puede estar vacío.");
+            }
+
+            // Solicitar y validar calificación
+            for (;;)
+            {
+                Console.Write("Ingrese la calificación de " + nombres[i] + " (0.0 - 5.0): ");
+                string entrada = Console.ReadLine();
+
+                double nota;
+
+                if (double.TryParse(entrada, out nota) && nota >= 0.0 && nota <= 5.0)
+                {
+                    calificaciones[i] = nota;
+                    break;
+                }
+
+                Console.WriteLine("Error: la calificación debe ser un número entre 0.0 y 5.0.");
+            }
+        }
+
+        // Variables para las estadísticas
         double suma = 0;
         double mayor = calificaciones[0];
         double menor = calificaciones[0];
-
         int aprobados = 0;
         int reprobados = 0;
 
-        
+        // Calcular estadísticas
         for (int i = 0; i < 18; i++)
         {
             suma += calificaciones[i];
@@ -84,27 +78,27 @@ class Program
 
         double promedio = suma / 18;
 
-        
-        Console.WriteLine("========== REGISTRO DE CALIFICACIONES ==========\n");
+        // Mostrar reporte
+        Console.WriteLine("\n========== REPORTE FINAL ==========");
+
+        Console.WriteLine("\nEstudiantes y calificaciones:");
 
         for (int i = 0; i < 18; i++)
         {
             Console.WriteLine(
                 (i + 1) + ". " + nombres[i] +
-                " - Calificacion: " +
-                calificaciones[i].ToString("F2")
+                " - " + calificaciones[i].ToString("F2")
             );
         }
 
-        // Mostrar estadísticas
-        Console.WriteLine("\n========== REPORTE FINAL ==========");
-        Console.WriteLine("Promedio del grupo: " + promedio.ToString("F2"));
+        Console.WriteLine("\n========== ESTADÍSTICAS ==========");
+        Console.WriteLine("Promedio: " + promedio.ToString("F2"));
         Console.WriteLine("Nota mayor: " + mayor.ToString("F2"));
         Console.WriteLine("Nota menor: " + menor.ToString("F2"));
         Console.WriteLine("Cantidad de aprobados: " + aprobados);
         Console.WriteLine("Cantidad de reprobados: " + reprobados);
 
+        Console.WriteLine("\nPresione una tecla para salir...");
         Console.ReadKey();
     }
 }
-
