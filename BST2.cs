@@ -1,5 +1,5 @@
-
 using System;
+using System.Collections.Generic;
 
 public class Node
 {
@@ -7,9 +7,9 @@ public class Node
     public Node Left;
     public Node Right;
 
-    public Node(int value)
+    public Node(int data)
     {
-        Data = value;
+        Data = data;
         Left = null;
         Right = null;
     }
@@ -21,20 +21,20 @@ public class BinarySearchTree
 
     public void Insert(int data)
     {
-        Root = InsertRec(Root, data);
+        Root = InsertRecursive(Root, data);
     }
 
-    private Node InsertRec(Node root, int data)
+    private Node InsertRecursive(Node current, int data)
     {
-        if (root == null)
+        if (current == null)
             return new Node(data);
 
-        if (data < root.Data)
-            root.Left = InsertRec(root.Left, data);
-        else if (data > root.Data)
-            root.Right = InsertRec(root.Right, data);
+        if (data < current.Data)
+            current.Left = InsertRecursive(current.Left, data);
+        else if (data > current.Data)
+            current.Right = InsertRecursive(current.Right, data);
 
-        return root;
+        return current;
     }
 }
 
@@ -63,30 +63,52 @@ public class TreeTraversals
         PostOrder(node.Right);
         Console.Write(node.Data + " ");
     }
+
+    public void LevelOrder(Node root)
+    {
+        if (root == null) return;
+
+        Queue<Node> queue = new Queue<Node>();
+        queue.Enqueue(root);
+
+        while (queue.Count > 0)
+        {
+            Node current = queue.Dequeue();
+            Console.Write(current.Data + " ");
+
+            if (current.Left != null) queue.Enqueue(current.Left);
+            if (current.Right != null) queue.Enqueue(current.Right);
+        }
+    }
 }
 
 public class Program
 {
     public static void Main()
     {
-        BinarySearchTree tree = new BinarySearchTree();
+        int[] values = { 45, 23, 67, 12, 34, 56, 89 };
+        BinarySearchTree bst = new BinarySearchTree();
 
-        int[] numbers = { 45, 23, 67, 12, 34, 56, 89 };
+        foreach (int value in values)
+            bst.Insert(value);
 
-        foreach (int number in numbers)
-            tree.Insert(number);
+        TreeTraversals traversals = new TreeTraversals();
 
-        TreeTraversals traversal = new TreeTraversals();
+        Console.WriteLine("EJERCICIO 2: Recorridos del arbol BST");
+        Console.Write("Preorden:  ");
+        traversals.PreOrder(bst.Root);
+        Console.WriteLine();
 
-        Console.Write("Preorden: ");
-        traversal.PreOrder(tree.Root);
+        Console.Write("Inorden:   ");
+        traversals.InOrder(bst.Root);
+        Console.WriteLine();
 
-        Console.Write("\nInorden: ");
-        traversal.InOrder(tree.Root);
+        Console.Write("Posorden:  ");
+        traversals.PostOrder(bst.Root);
+        Console.WriteLine();
 
-        Console.Write("\nPosorden: ");
-        traversal.PostOrder(tree.Root);
-
+        Console.Write("Por niveles (BFS, adicional): ");
+        traversals.LevelOrder(bst.Root);
         Console.WriteLine();
     }
 }
